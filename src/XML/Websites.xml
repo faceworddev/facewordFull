@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <Websites>
+        <Website>
+            <Name>
+                Facebook
+            </Name>
+            <URL>
+                www.facebook.com
+            </URL>
+        </Website>
+        <Website>
+            <Name>
+                Instagram
+            </Name>
+            <URL>
+                www.instagram.com
+            </URL>
+        </Website>
+        <Website>
+            <Name>
+                Twitter
+            </Name>
+            <URL>
+                www.twitter.com
+            </URL>
+        </Website>
+        <Website>
+            <Name>
+                Pinterest
+            </Name>
+            <URL>
+                www.pinterest.com
+            </URL>
+        </Website>
+        <Website>
+            <Name>
+                Other
+            </Name>
+            <URL>
+            </URL>
+        </Website>
+    </Websites>
+</root>
