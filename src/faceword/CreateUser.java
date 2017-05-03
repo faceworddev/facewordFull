@@ -3,6 +3,7 @@ package faceword;
 import com.github.sarxos.webcam.Webcam;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ public class CreateUser
     {
         BufferedImage bi = wc.getImage();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        
         try 
         {
             ImageIO.write(bi, "jpg", baos );

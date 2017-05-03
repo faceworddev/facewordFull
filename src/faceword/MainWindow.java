@@ -2,6 +2,7 @@ package faceword;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,12 @@ public class MainWindow extends javax.swing.JFrame
     
     public MainWindow(ApplicationController ac) 
     {
+        if(wc != null)
+        {
+            wc.close();
+        }
+        
+        wc.setViewSize(WebcamResolution.VGA.getSize());
         this.controller = ac;
         this.setUndecorated(true);
         initComponents();

@@ -1,6 +1,13 @@
 package faceword;
 
 import java.awt.Image;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 public class User 
 {
@@ -52,6 +59,22 @@ public class User
     public void setUserId(int userId) 
     {
         this.userId = userId;
+    }
+    
+    public void setImage(Blob b)
+    {
+        try 
+        {
+            this.image = ImageIO.read(new ByteArrayInputStream(b.getBytes(1,(int)b.length())));
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setImage(Image image) 
