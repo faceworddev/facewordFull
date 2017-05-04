@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class LoginServiceGui extends javax.swing.JFrame 
@@ -12,15 +13,20 @@ public class LoginServiceGui extends javax.swing.JFrame
     ArrayList<Credential> credentials;
     private ApplicationController controller;
     private int userId;
-    
+    private User user;
     
     public LoginServiceGui(ArrayList<Credential> credentials, ApplicationController ac, int ui) 
     {
         this.userId = ui;
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager();
+        Connection con = dcm.GetNewConnection();
+        user = DatabaseRepository.GetUser(con, userId);
+        dcm.CloseConnection(con);
         this.controller = ac;
         this.credentials = credentials;
         this.setUndecorated(true);
         initComponents();
+        this.UserNameLabel.setText("You are logged in as "+user.getFirstName()+ " " + user.getLastName());
         this.setLocation(dim.width/2-this.getSize().width/2, 0);
         this.PopulateComoboBox();
         this.goButton.addActionListener(new GoAction());
@@ -47,6 +53,7 @@ public class LoginServiceGui extends javax.swing.JFrame
         jComboBox1 = new javax.swing.JComboBox<>();
         websiteComboBox = new javax.swing.JComboBox<>();
         goButton = new javax.swing.JButton();
+        UserNameLabel = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -57,13 +64,17 @@ public class LoginServiceGui extends javax.swing.JFrame
 
         goButton.setText("Go");
 
+        UserNameLabel.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(websiteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(UserNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(websiteComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(goButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -75,7 +86,9 @@ public class LoginServiceGui extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(websiteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(goButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(UserNameLabel)
+                .addContainerGap())
         );
 
         pack();
@@ -83,6 +96,7 @@ public class LoginServiceGui extends javax.swing.JFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel UserNameLabel;
     private javax.swing.JButton goButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> websiteComboBox;

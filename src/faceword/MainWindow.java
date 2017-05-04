@@ -77,6 +77,7 @@ public class MainWindow extends javax.swing.JFrame
             int userId = CreateUser.CreateUser(wc);
             FaceApiRepository.AddSingleUserImage(controller.getFaceListId(), userId);
             controller.UpdateUsersCountAndUserLookup();
+            controller.DisplayLoggedInGui(userId);
         }
     }
 
