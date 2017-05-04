@@ -40,6 +40,7 @@ public class LoginServiceGui extends javax.swing.JFrame
         }
         this.websiteComboBox.addItem("Add Account");
         this.websiteComboBox.addItem("Sign Out");
+        this.websiteComboBox.addItem("Exit Program");
     }
     
     public void EmptyComboBox()
@@ -170,6 +171,11 @@ public class LoginServiceGui extends javax.swing.JFrame
             else if(item.equals("Sign Out"))
             {
                 controller.DisplayLoginScreen();
+            }
+            else if(item.equals("Exit Program"))
+            {
+                FaceApiRepository.DeleteFaceList(controller.getFaceListId());
+                System.exit(0);
             }
         } 
     }

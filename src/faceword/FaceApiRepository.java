@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -18,6 +19,35 @@ import org.json.simple.parser.JSONParser;
 
 public class FaceApiRepository 
 {
+    private static final String key = "b96aec45316b431289e6c0c1d6b288ed";
+    
+    public static void DeleteFaceList(int id)
+    {
+        HttpClient httpclient = HttpClients.createDefault();
+
+        try
+        {
+            URIBuilder builder = new URIBuilder("https://westus.api.cognitive.microsoft.com/face/v1.0/facelists/"+id);
+
+
+            URI uri = builder.build();
+            HttpDelete request = new HttpDelete(uri);
+            request.setHeader("Ocp-Apim-Subscription-Key", key);
+
+            HttpResponse response = httpclient.execute(request);
+            HttpEntity entity = response.getEntity();
+
+            if (entity != null) 
+            {
+                System.out.println(EntityUtils.toString(entity));
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void AddSingleUserImage(int faceListId, int userId)
     {
         HttpClient httpclient = HttpClients.createDefault();
@@ -30,7 +60,7 @@ public class FaceApiRepository
             URI uri = builder.build();
             HttpPost request = new HttpPost(uri);
             request.setHeader("Content-Type", "application/json");
-            request.setHeader("Ocp-Apim-Subscription-Key", "52c924ac479b4c8682afa61fdb346eb2");
+            request.setHeader("Ocp-Apim-Subscription-Key", key);
 
 
             // Request body
@@ -65,7 +95,7 @@ public class FaceApiRepository
                 URI uri = builder.build();
                 HttpPost request = new HttpPost(uri);
                 request.setHeader("Content-Type", "application/json");
-                request.setHeader("Ocp-Apim-Subscription-Key", "52c924ac479b4c8682afa61fdb346eb2");
+                request.setHeader("Ocp-Apim-Subscription-Key", key);
 
 
                 // Request body
@@ -101,7 +131,7 @@ public class FaceApiRepository
 
             URI uri = builder.build();
             HttpGet request = new HttpGet(uri);
-            request.setHeader("Ocp-Apim-Subscription-Key", "52c924ac479b4c8682afa61fdb346eb2");
+            request.setHeader("Ocp-Apim-Subscription-Key", key);
 
             HttpResponse response = httpclient.execute(request);
             HttpEntity entity = response.getEntity();
@@ -142,7 +172,7 @@ public class FaceApiRepository
             URI uri = builder.build();
             HttpPost request = new HttpPost(uri);
             request.setHeader("Content-Type", "application/json");
-            request.setHeader("Ocp-Apim-Subscription-Key", "52c924ac479b4c8682afa61fdb346eb2");
+            request.setHeader("Ocp-Apim-Subscription-Key", key);
             
             // Request body
             StringEntity reqEntity = new StringEntity("{\"url\":\"http://www.faceworddev.com/CurrentUser/"+imageHashHex+".png\"}");
@@ -179,7 +209,7 @@ public class FaceApiRepository
             URI uri = builder.build();
             HttpPost request = new HttpPost(uri);
             request.setHeader("Content-Type", "application/json");
-            request.setHeader("Ocp-Apim-Subscription-Key", "52c924ac479b4c8682afa61fdb346eb2");
+            request.setHeader("Ocp-Apim-Subscription-Key", key);
 
 
             // Request body
@@ -235,7 +265,7 @@ public class FaceApiRepository
             URI uri = builder.build();
             HttpPut request = new HttpPut(uri);
             request.setHeader("Content-Type", "application/json");
-            request.setHeader("Ocp-Apim-Subscription-Key", "52c924ac479b4c8682afa61fdb346eb2");
+            request.setHeader("Ocp-Apim-Subscription-Key", key);
 
 
             // Request body
