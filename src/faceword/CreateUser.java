@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class CreateUser
 {
-    public static void CreateUser(Webcam wc)
+    public static int CreateUser(Webcam wc)
     {
         BufferedImage bi = wc.getImage();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -56,7 +56,10 @@ public class CreateUser
         DatabaseConnectionManager dcm = new DatabaseConnectionManager();
         Connection con = dcm.GetNewConnection();
         DatabaseRepository.CreateUser(con, imageInByte, firstName, lastName);
+        int userId = DatabaseRepository.GetUserCount(con);
+        ServerUploader.SaveNewUserImageToServer(bi, userId);
         dcm.CloseConnection(con);
+        return userId;
     }  
 }
 

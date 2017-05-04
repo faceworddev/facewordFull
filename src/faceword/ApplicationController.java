@@ -1,6 +1,5 @@
 package faceword;
 
-import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -11,10 +10,44 @@ public class ApplicationController
     private static AddAccountWindow aaw;
     private static ArrayList<Credential> credentials;
     private int userId = 0;
+    private int faceListId = 0;
+    private int userCount = 0;
+    private ArrayList<PersistedFaceId> userLookup;
 
     public ApplicationController ()
     {
+        faceListId = FaceApiRepository.CreateNewFaceList();
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager();
+        Connection con = dcm.GetNewConnection();
+        userCount = DatabaseRepository.GetUserCount(con);
+        dcm.CloseConnection(con);
+        FaceApiRepository.AddUserImagesToFaceList(faceListId, userCount);
+        userLookup = FaceApiRepository.PopulatePersistedFaceIdArrayList(faceListId);
         this.DisplayLoginScreen();
+    }
+
+    public int GetUserIdFromUserLookup(String faceId)
+    {
+        for(int i = 0; i< userLookup.size(); i++)
+        {
+            if(userLookup.get(i).getFaceId().equals(faceId))
+            {
+                return userLookup.get(i).getUserId();
+            }
+        }
+        
+        return 0;
+    }
+    
+    public void UpdateUsersCountAndUserLookup()
+    {
+        userCount++;
+        userLookup = FaceApiRepository.PopulatePersistedFaceIdArrayList(faceListId);
+    }
+    
+    public int getFaceListId() 
+    {
+        return faceListId;
     }
 
     public void DisplayLoginScreen()

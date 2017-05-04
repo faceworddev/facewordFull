@@ -145,7 +145,8 @@ public class DatabaseRepository
         // Send image to database in order to find user.
         // If a user is found then the user ID will be returned otherwise -1 one will returned.
         // For now let's just return user 1.
-        return 3;
+
+        return 4;
     }
     
     public static User GetUser(Connection con, int userId)
@@ -200,5 +201,28 @@ public class DatabaseRepository
         }
 
         return users;
+    }
+    
+    public static int GetUserCount(Connection con)
+    {
+        int count = 0;
+        Statement stmt;
+
+        try
+        {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
+            
+            while(rs.next())
+            {
+                count++;
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DatabaseRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return count;
     }
 }

@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static java.awt.image.ImageObserver.HEIGHT;
+import javax.swing.JOptionPane;
 
 public class MainWindow extends javax.swing.JFrame 
 {
@@ -72,7 +74,9 @@ public class MainWindow extends javax.swing.JFrame
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            CreateUser.CreateUser(wc);
+            int userId = CreateUser.CreateUser(wc);
+            FaceApiRepository.AddSingleUserImage(controller.getFaceListId(), userId);
+            controller.UpdateUsersCountAndUserLookup();
         }
     }
 
@@ -80,10 +84,23 @@ public class MainWindow extends javax.swing.JFrame
     {
         public void actionPerformed(ActionEvent e)
         {
-            int userId = LoginUser.LoginUser(wc);
-            if(userId > 0)
+            String currentUserFaceId = LoginUser.LoginUser(wc);
+            String match = FaceApiRepository.AuthenticateFace(controller.getFaceListId(), currentUserFaceId);
+            if(match != null)
             {
-                controller.DisplayLoggedInGui(userId);
+                int userId = controller.GetUserIdFromUserLookup(match);
+                if(userId > 0)
+                {
+                    controller.DisplayLoggedInGui(userId);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "No user found.", "Not Found!!1", HEIGHT);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "No user found.", "Not Found!!1", HEIGHT);
             }
         }
     }
