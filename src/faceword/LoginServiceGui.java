@@ -166,7 +166,10 @@ public class LoginServiceGui extends javax.swing.JFrame
             {
                 try
                 {
-                controller.getDriver().close();
+                    if(controller.getDriver() != null)
+                    {
+                        controller.getDriver().close();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -179,7 +182,10 @@ public class LoginServiceGui extends javax.swing.JFrame
             {
                 try
                 {
-                controller.getDriver().close();
+                    if(controller.getDriver() != null)
+                    {
+                        controller.getDriver().close();
+                    }
                 }
                 catch (Exception ex)
                 {
