@@ -20,6 +20,7 @@ import org.json.simple.parser.JSONParser;
 public class FaceApiRepository 
 {
     private static final String key = "b96aec45316b431289e6c0c1d6b288ed";
+    //private static final String key = "5b099dc33fcd4ed0bcdca3f36dbb0d4b"; //Backup key.
     
     public static void DeleteFaceList(int id)
     {
