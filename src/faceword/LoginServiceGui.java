@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LoginServiceGui extends javax.swing.JFrame 
 {
@@ -115,7 +116,8 @@ public class LoginServiceGui extends javax.swing.JFrame
                 {
                     if(credentials.get(i).getUrl().equals("Facebook"))
                     {
-                        LoginRepository.loginFacebook(credentials.get(i));
+                        controller.setDriver(new ChromeDriver());
+                        LoginRepository.loginFacebook(credentials.get(i), controller.getDriver());
                         break;
                     }
                 }
@@ -126,7 +128,8 @@ public class LoginServiceGui extends javax.swing.JFrame
                 {
                     if(credentials.get(i).getUrl().equals("Instagram"))
                     {
-                        LoginRepository.loginInstagram(credentials.get(i));
+                        controller.setDriver(new ChromeDriver());
+                        LoginRepository.loginInstagram(credentials.get(i), controller.getDriver());
                         break;
                     }
                 }
@@ -137,7 +140,8 @@ public class LoginServiceGui extends javax.swing.JFrame
                 {
                     if(credentials.get(i).getUrl().equals("Twitter"))
                     {
-                        LoginRepository.loginTwitter(credentials.get(i));
+                        controller.setDriver(new ChromeDriver());
+                        LoginRepository.loginTwitter(credentials.get(i), controller.getDriver());
                         break;
                     }
                 }
@@ -148,7 +152,8 @@ public class LoginServiceGui extends javax.swing.JFrame
                 {
                     if(credentials.get(i).getUrl().equals("Pinterest"))
                     {
-                        LoginRepository.loginPinterest(credentials.get(i));
+                        controller.setDriver(new ChromeDriver());
+                        LoginRepository.loginPinterest(credentials.get(i), controller.getDriver());
                         break;
                     }
                 }
@@ -159,10 +164,28 @@ public class LoginServiceGui extends javax.swing.JFrame
             }
             else if(item.equals("Sign Out"))
             {
+                try
+                {
+                controller.getDriver().close();
+                }
+                catch (Exception ex)
+                {
+                    System.out.println(controller.getDriver().toString());
+                }
+                
                 controller.DisplayLoginScreen();
             }
             else if(item.equals("Exit Program"))
             {
+                try
+                {
+                controller.getDriver().close();
+                }
+                catch (Exception ex)
+                {
+                    System.out.println(controller.getDriver().toString());
+                }
+                
                 FaceApiRepository.DeleteFaceList(controller.getFaceListId());
                 System.exit(0);
             }

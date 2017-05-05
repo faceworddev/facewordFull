@@ -2,6 +2,7 @@ package faceword;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class ApplicationController
 {
@@ -13,9 +14,13 @@ public class ApplicationController
     private int faceListId = 0;
     private int userCount = 0;
     private ArrayList<PersistedFaceId> userLookup;
-
+    final static String macDriverPath = "/Users/TacoFucker/NetBeansProjects/facewordFull/ExternalLibraries/chromedriver";
+    final static String windowsDriverPath = "C:\\Users\\tcordonnier2\\Documents\\NetBeansProjects\\FaceWord\\ExternalLibraries\\chromedriver.exe";
+    private ChromeDriver driver;
+    
     public ApplicationController ()
     {
+        System.setProperty("webdriver.chrome.driver", GetDriverPath());
         faceListId = FaceApiRepository.CreateNewFaceList();
         DatabaseConnectionManager dcm = new DatabaseConnectionManager();
         Connection con = dcm.GetNewConnection();
@@ -24,6 +29,16 @@ public class ApplicationController
         FaceApiRepository.AddUserImagesToFaceList(faceListId, userCount);
         userLookup = FaceApiRepository.PopulatePersistedFaceIdArrayList(faceListId);
         this.DisplayLoginScreen();
+    }
+
+    public void setDriver(ChromeDriver driver) 
+    {
+        this.driver = driver;
+    }
+    
+    public ChromeDriver getDriver() 
+    {
+        return driver;
     }
 
     public int GetUserIdFromUserLookup(String faceId)
@@ -37,6 +52,23 @@ public class ApplicationController
         }
         
         return 0;
+    }
+    
+    public static String GetDriverPath()
+    {
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("win"))
+        {
+            return windowsDriverPath;
+        }
+        else if(os.contains("mac"))
+        {
+            return macDriverPath;
+        }   
+        else
+        {
+            return null;
+        }
     }
     
     public void UpdateUsersCountAndUserLookup()
