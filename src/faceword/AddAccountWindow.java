@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -27,7 +26,7 @@ public class AddAccountWindow extends javax.swing.JFrame
         this.userId = ui;
         this.setUndecorated(true);
         initComponents();
-        this.setLocation(dim.width/2-this.getSize().width/2, 0);
+        this.setLocation(dim.width/2-this.getSize().width/2, 25);
         this.setVisible(true);
         this.setResizable(false);
         this.submitButton.addActionListener(new AddAccount());

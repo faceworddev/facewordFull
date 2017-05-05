@@ -27,7 +27,7 @@ public class LoginServiceGui extends javax.swing.JFrame
         this.setUndecorated(true);
         initComponents();
         this.UserNameLabel.setText("You are logged in as "+user.getFirstName()+ " " + user.getLastName());
-        this.setLocation(dim.width/2-this.getSize().width/2, 0);
+        this.setLocation(dim.width/2-this.getSize().width/2, 25);
         this.PopulateComoboBox();
         this.goButton.addActionListener(new GoAction());
     }
@@ -38,7 +38,7 @@ public class LoginServiceGui extends javax.swing.JFrame
         {
             this.websiteComboBox.addItem(credentials.get(i).getUrl());
         }
-        this.websiteComboBox.addItem("Add Account");
+        this.websiteComboBox.addItem("Add/Change Account");
         this.websiteComboBox.addItem("Sign Out");
         this.websiteComboBox.addItem("Exit Program");
     }
@@ -153,18 +153,7 @@ public class LoginServiceGui extends javax.swing.JFrame
                     }
                 }
             }
-            else if(item.equals("Gmail"))
-            {
-                for(int i = 0; i< credentials.size(); i++)
-                {
-                    if(credentials.get(i).getUrl().equals("Gmail"))
-                    {
-                        LoginRepository.loginGmail(credentials.get(i));
-                        break;
-                    }
-                }
-            }
-            else if(item.equals("Add Account"))
+            else if(item.equals("Add/Change Account"))
             {
                 controller.DisplayAddAccount(userId);
             }

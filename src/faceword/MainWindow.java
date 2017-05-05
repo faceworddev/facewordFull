@@ -78,6 +78,7 @@ public class MainWindow extends javax.swing.JFrame
             FaceApiRepository.AddSingleUserImage(controller.getFaceListId(), userId);
             controller.UpdateUsersCountAndUserLookup();
             controller.DisplayLoggedInGui(userId);
+            wc.close();
         }
     }
 
@@ -93,6 +94,7 @@ public class MainWindow extends javax.swing.JFrame
                 if(userId > 0)
                 {
                     controller.DisplayLoggedInGui(userId);
+                    wc.close();
                 }
                 else
                 {
